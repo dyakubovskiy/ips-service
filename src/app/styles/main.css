@@ -1,0 +1,174 @@
+html {
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    Roboto,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    'Helvetica Neue',
+    Arial;
+  background: #f4f6f8;
+  color: #111;
+  font-size: 1.6rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 2.4rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2.4rem;
+  box-shadow: 0 6px 18px rgba(12, 20, 30, 0.06);
+}
+
+.hstack {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.vstack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin: 0 0 1.2rem 0;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 0 0 1rem 0;
+}
+
+.p-muted {
+  color: #6b7280;
+  font-size: 1.4rem;
+}
+
+.input,
+.textarea,
+.select {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  font-size: 1.6rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.textarea {
+  min-height: 12rem;
+  resize: vertical;
+}
+
+.label {
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.btn {
+  padding: 0.9rem 1.6rem;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  border: 0;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.sidebar {
+  width: 26rem;
+  padding: 2.4rem;
+  background: #0f1724;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.sidebar .nav {
+  margin-top: 2.4rem;
+}
+
+.sidebar a {
+  color: #cbd5e1;
+  display: block;
+  padding: 0.8rem 0;
+  font-size: 1.6rem;
+}
+
+.sidebar a.active {
+  color: #fff;
+  font-weight: 700;
+}
+
+.header {
+  height: 6.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.4rem;
+  background: #fff;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.header .brand {
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 1.2rem 0.8rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.small {
+  font-size: 1.4rem;
+}
