@@ -1,0 +1,11 @@
+services:
+  servicehub-backend:
+    image: dyakubovskiy/servicehub-backend-isp:latest
+    ports:
+      - "3000:3000"
+    environment:
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      BACKEND_JWT_SECRET: ${BACKEND_JWT_SECRET}
+      SEED_ADMIN_SECRET: ${SEED_ADMIN_SECRET}
+    restart: unless-stopped
