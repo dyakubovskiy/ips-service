@@ -1,3 +1,5 @@
+import { http } from '@/shared/api'
+
 interface LoginData {
   user: {
     id: string
@@ -15,16 +17,11 @@ export const login = async (payload: {
   email: string
   password: string
 }): Promise<LoginData | null> => {
-  const response = await fetch('http://localhost:3000/api/auth/login', {
+  const { data, status } = await http.fetchFull<LoginData>({
+    url: '/auth/login',
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
+    data: payload
   })
 
-  const data = await response.json()
-
-  return response.status === 200 ? data : null
+  return status === 200 && data !== null ? data : null
 }
