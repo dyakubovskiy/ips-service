@@ -28,6 +28,7 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from 'vue-router'
 
+import { SUBSCRIBES_LINK } from '@/pages/subscribes'
 import { MAIN_LINK } from '@/shared/config'
 
 interface Link {
@@ -35,7 +36,10 @@ interface Link {
   name: string
 }
 
-const LINKS = [{ to: MAIN_LINK, name: 'Главная' }] as const satisfies Array<Link>
+const LINKS = [
+  { to: MAIN_LINK, name: 'Главная' },
+  { to: SUBSCRIBES_LINK, name: 'Мои подписки' }
+] as const satisfies Array<Link>
 </script>
 
 <style scoped>
