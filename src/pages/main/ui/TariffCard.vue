@@ -30,14 +30,10 @@
 <script setup lang="ts">
 import type { Tariff } from '../api'
 
+import { currencyFormatter } from '@/shared/lib/formats'
 import { VButton } from '@/shared/ui/buttons'
 
 defineProps<Tariff>()
-
-const currencyFormatter = new Intl.NumberFormat('ru-RU', {
-  style: 'currency',
-  currency: 'RUB'
-})
 
 defineEmits<{
   (e: 'subscribe', tariffId: string): void
