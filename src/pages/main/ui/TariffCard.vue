@@ -21,11 +21,7 @@
           {{ speed }} Mb/s
         </div>
         <RouterLink to="/">Подробнее</RouterLink>
-        <button
-          type="button"
-          class="btn btn-primary">
-          Подключить
-        </button>
+        <VButton>Подключить</VButton>
       </div>
     </div>
   </div>
@@ -33,6 +29,8 @@
 
 <script setup lang="ts">
 import type { Tariff } from '../api'
+
+import { VButton } from '@/shared/ui/buttons'
 
 defineProps<Tariff>()
 
