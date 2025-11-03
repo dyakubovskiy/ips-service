@@ -12,7 +12,8 @@
           <TariffCard
             v-for="tariff in tariffs"
             :key="tariff.id"
-            v-bind="tariff" />
+            v-bind="tariff"
+            @subscribe="subscribeHandler" />
         </template>
         <template v-else>На данный момент список тарифов пуст. Обратитесь к провайдеру</template>
       </template>
@@ -25,7 +26,7 @@ import type { Ref } from 'vue'
 import type { Tariff } from '../api'
 
 import { ref, onMounted } from 'vue'
-import { getTariffList } from '../api'
+import { getTariffList, subscribeToTariff } from '../api'
 import TariffCard from './TariffCard.vue'
 import TariffSkeleton from './TariffSkeleton.vue'
 
@@ -39,6 +40,12 @@ const fetchTariffs = async (): Promise<void> => {
 }
 
 onMounted(fetchTariffs)
+
+const subscribeHandler = async (tariffId: string): Promise<void> => {
+  const isSubscribed = await subscribeToTariff(tariffId)
+
+  alert(isSubscribed ? 'Подписка прошла успешно' : 'Во время подписки произошла ошибка')
+}
 </script>
 
 <style scoped>

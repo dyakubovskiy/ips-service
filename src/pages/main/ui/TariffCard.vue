@@ -21,7 +21,7 @@
           {{ speed }} Mb/s
         </div>
         <RouterLink to="/">Подробнее</RouterLink>
-        <VButton>Подключить</VButton>
+        <VButton @click="$emit('subscribe', id)">Подключить</VButton>
       </div>
     </div>
   </div>
@@ -38,6 +38,10 @@ const currencyFormatter = new Intl.NumberFormat('ru-RU', {
   style: 'currency',
   currency: 'RUB'
 })
+
+defineEmits<{
+  (e: 'subscribe', tariffId: string): void
+}>()
 </script>
 
 <style scoped>
