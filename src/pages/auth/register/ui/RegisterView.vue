@@ -22,7 +22,7 @@
     </div>
     <div class="hstack">
       <RouterLink
-        to="/login"
+        :to="LOGIN_LINK"
         class="btn btn-ghost">
         Авторизоваться
       </RouterLink>
@@ -40,6 +40,7 @@
 import type { Ref } from 'vue'
 
 import { ref } from 'vue'
+import { LOGIN_LINK } from '../../login'
 import { registration } from '../api'
 
 interface RegisterForm {
