@@ -5,29 +5,37 @@
       <input
         v-model="form.email"
         placeholder="Email"
+        :disabled="isLoading"
+        :class="{ error: hasError(form.email) }"
         class="input" />
       <input
         v-model="form.password"
         placeholder="Password"
         type="password"
+        :disabled="isLoading"
+        :class="{ error: hasError(form.password) }"
         class="input" />
       <input
         v-model="form.name"
         placeholder="Name"
+        :disabled="isLoading"
         class="input" />
       <input
         v-model="form.address"
         placeholder="Address"
+        :disabled="isLoading"
         class="input" />
     </div>
     <div class="hstack">
       <RouterLink
         :to="LOGIN_LINK"
+        :disabled="isLoading"
         class="btn btn-ghost">
         Авторизоваться
       </RouterLink>
       <button
         type="button"
+        :disabled="isLoading"
         class="btn btn-primary"
         @click="registerHandler">
         Зарегистрироваться
@@ -57,10 +65,17 @@ const form: Ref<RegisterForm> = ref({
   address: null
 })
 
-const registerHandler = (): void => {
-  if (isFormValid(form.value)) {
-    registration(form.value)
-  }
+const isSubmitted: Ref<boolean> = ref(false)
+const isLoading: Ref<boolean> = ref(false)
+
+const registerHandler = async (): Promise<void> => {
+  isSubmitted.value = true
+  if (!isFormValid(form.value)) return
+  isSubmitted.value = false
+
+  isLoading.value = true
+  await registration(form.value)
+  isLoading.value = false
 }
 
 const isFormValid = (
@@ -68,6 +83,8 @@ const isFormValid = (
 ): form is { email: string; password: string; name: string | null; address: string | null } => {
   return !!form.email && !!form.password
 }
+
+const hasError = (field: string | null): boolean => isSubmitted.value && !field
 </script>
 
 <style scoped>
@@ -79,5 +96,17 @@ const isFormValid = (
 
 .hstack {
   justify-content: space-between;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.btn:disabled {
+  opacity: 0.3;
+}
+
+.input:disabled {
+  background: gainsboro;
 }
 </style>
