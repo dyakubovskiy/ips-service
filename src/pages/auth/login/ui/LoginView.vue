@@ -70,7 +70,6 @@ const loginHandler = async (): Promise<void> => {
 
   isLoading.value = true
   const user = await login(form.value)
-  await new Promise((resolve) => setTimeout(resolve, 5000 * 5000))
   isLoading.value = false
 
   if (user === null) {
