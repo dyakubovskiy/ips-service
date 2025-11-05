@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import { CenteredLayout, SidebarLayout } from '../layout'
 import { AUTH_SECTION_ROUTE } from '@/pages/auth'
+import { useUserStore } from '@/entities/user'
 import { MAIN_ROUTE } from '@/pages/main'
 import { MAIN_LINK } from '@/shared/config'
 
@@ -25,6 +26,24 @@ const router = createRouter({
       component: SidebarLayout
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const { isUserAuth } = useUserStore()
+
+  if (isUserAuth) {
+    if (to.path.startsWith(AUTH_SECTION_ROUTE.path)) {
+      return next({ name: MAIN_LINK.name })
+    }
+
+    return next()
+  }
+
+  if (to.path.startsWith(AUTH_SECTION_ROUTE.path)) {
+    return next()
+  }
+
+  return next({ name: 'login' })
 })
 
 export default router
