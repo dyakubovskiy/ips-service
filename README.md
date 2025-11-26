@@ -16,3 +16,7 @@ docker compose up -d
 6. Вынести button в компонет VButton
 7. Вынести форматирование валюты в shared
 8. Добавить skeleton для SubscribeList
+9. Добавить логику logout
+10. Добавить реактивность в pinia
+11. Добавить редирект при 404
+12. Добавить sprite.svg

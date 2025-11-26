@@ -1,0 +1,3 @@
+import { INVOICES_ROUTE, INVOICES_LINK } from './route'
+
+export { INVOICES_ROUTE, INVOICES_LINK }
