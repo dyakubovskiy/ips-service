@@ -27,13 +27,11 @@
           class="btn btn-ghost">
           Регистрация
         </RouterLink>
-        <button
-          type="button"
+        <VButton
           :disabled="isLoading"
-          class="btn btn-primary"
           @click="loginHandler">
           Войти
-        </button>
+        </VButton>
       </div>
     </div>
   </div>
@@ -47,6 +45,7 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/entities/user'
 import { MAIN_LINK } from '@/shared/config'
 import { http } from '@/shared/api'
+import { VButton } from '@/shared/ui/button'
 import { REGISTER_LINK } from '../../register'
 import { login } from '../api'
 

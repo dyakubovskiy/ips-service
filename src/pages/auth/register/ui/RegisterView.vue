@@ -33,13 +33,11 @@
         class="btn btn-ghost">
         Авторизоваться
       </RouterLink>
-      <button
-        type="button"
+      <VButton
         :disabled="isLoading"
-        class="btn btn-primary"
         @click="registerHandler">
         Зарегистрироваться
-      </button>
+      </VButton>
     </div>
   </div>
 </template>
@@ -48,6 +46,7 @@
 import type { Ref } from 'vue'
 
 import { ref } from 'vue'
+import { VButton } from '@/shared/ui/button'
 import { LOGIN_LINK } from '../../login'
 import { registration } from '../api'
 

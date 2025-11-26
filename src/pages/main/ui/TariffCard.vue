@@ -21,12 +21,7 @@
           {{ speed }} Mb/s
         </div>
         <RouterLink to="/">Подробнее</RouterLink>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="$emit('subscribe', id)">
-          Подключить
-        </button>
+        <VButton @click="$emit('subscribe', id)">Подключить</VButton>
       </div>
     </div>
   </div>
@@ -34,6 +29,8 @@
 
 <script setup lang="ts">
 import type { Tariff } from '../api'
+
+import { VButton } from '@/shared/ui/button'
 
 defineProps<Tariff>()
 
