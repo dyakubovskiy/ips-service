@@ -27,12 +27,7 @@
         <div class="hstack">
           <div class="small">Привет, User</div>
           <RouterLink :to="MAIN_LINK">Профиль</RouterLink>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="logutUser">
-            Выход
-          </button>
+          <VButton @click="logutUser">Выход</VButton>
         </div>
       </header>
       <main>
@@ -50,6 +45,7 @@ import { SUBSCRIBES_LINK } from '@/pages/subscribes'
 import { INVOICES_LINK } from '@/pages/invoices'
 import { useUserStore } from '@/entities/user'
 import { MAIN_LINK } from '@/shared/config'
+import { VButton } from '@/shared/ui/button'
 
 interface Link {
   to: RouteLocationRaw

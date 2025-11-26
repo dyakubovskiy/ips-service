@@ -21,12 +21,7 @@
           {{ speed }} Mb/s
         </div>
         <RouterLink to="/">Подробнее</RouterLink>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="$emit('subscribe', id)">
-          Подключить
-        </button>
+        <VButton @click="$emit('subscribe', id)">Подключить</VButton>
       </div>
     </div>
   </div>
@@ -35,16 +30,14 @@
 <script setup lang="ts">
 import type { Tariff } from '../api'
 
+import { currencyFormatter } from '@/shared/lib/formats'
+import { VButton } from '@/shared/ui/button'
+
 defineProps<Tariff>()
 
 defineEmits<{
   (e: 'subscribe', id: string): void
 }>()
-
-const currencyFormatter = new Intl.NumberFormat('ru-RU', {
-  style: 'currency',
-  currency: 'RUB'
-})
 </script>
 
 <style scoped>

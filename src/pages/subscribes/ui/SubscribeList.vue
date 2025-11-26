@@ -32,15 +32,10 @@ import type { Ref } from 'vue'
 import type { Subscribe } from '../model'
 
 import { ref, onMounted } from 'vue'
-import { useDateFormat } from '@/shared/lib/formats'
+import { useDateFormat, currencyFormatter } from '@/shared/lib/formats'
 import { getSubscribeList } from '../api'
 
 const subscribes: Ref<Array<Subscribe>> = ref([])
-
-const currencyFormatter = new Intl.NumberFormat('ru-RU', {
-  style: 'currency',
-  currency: 'RUB'
-})
 
 onMounted(async () => {
   subscribes.value = await getSubscribeList()
