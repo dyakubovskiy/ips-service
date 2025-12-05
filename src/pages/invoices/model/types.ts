@@ -4,3 +4,8 @@ export interface Inovice {
   amount: number
   status: string
 }
+
+export interface InvoiceUser {
+  id: string
+  email: string
+}
