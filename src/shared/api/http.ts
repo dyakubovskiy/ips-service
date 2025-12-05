@@ -1,6 +1,9 @@
 import type { AxiosRequestConfig } from 'axios'
 
+import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { useUserStore } from '@/entities/user'
+import { MAIN_LINK } from '../config'
 
 interface HttpConfig {
   baseURL: string
@@ -44,7 +47,9 @@ const httpClient = ({ baseURL, defaultHeaders }: HttpConfig): HttpClient => {
 
       return { data, status }
     } catch (err: unknown) {
+      console.log(err)
       if (axios.isAxiosError(err) && err.response) {
+        if (err.response.status === 401) unAuthorizedHandler()
         return {
           data: err.response.data ?? DATA_NULL,
           status: err.response.status ?? ERROR_STATUS
@@ -85,6 +90,14 @@ const httpClient = ({ baseURL, defaultHeaders }: HttpConfig): HttpClient => {
     setToken,
     clearToken
   }
+}
+
+const unAuthorizedHandler = (): void => {
+  const router = useRouter()
+  const { resetUser } = useUserStore()
+
+  resetUser()
+  router.push({ name: MAIN_LINK.name })
 }
 
 const baseURL: string = import.meta.env.VITE_API_URL ?? '/'
