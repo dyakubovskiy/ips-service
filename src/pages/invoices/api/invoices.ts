@@ -1,4 +1,4 @@
-import type { Inovice } from '../model'
+import type { Inovice, InvoiceUser } from '../model'
 
 import { http } from '@/shared/api'
 
@@ -30,10 +30,17 @@ const invoiceMapDTO = ({ id, users: { email }, amount, status }: InvoiceDTO): In
   status
 })
 
-export const createInvoice = async (
-  userId: string = '0199f91b-67d1-7d2c-a9da-b9517a5ffe61'
-): Promise<boolean> =>
+export const createInvoice = async (userId: string): Promise<boolean> =>
   http.isSuccess({
     url: `${INVOICE_PATH}/generate/${userId}`,
     method: 'POST'
   })
+
+export const getUsersForInvoice = async (): Promise<Array<InvoiceUser>> => {
+  const list = await http.fetchData<Array<InvoiceUser>>({
+    url: `${INVOICE_PATH}/users`,
+    method: 'GET'
+  })
+
+  return list ?? []
+}

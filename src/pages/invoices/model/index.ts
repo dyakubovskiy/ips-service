@@ -1,3 +1,3 @@
-import type { Inovice } from './types'
+import type { Inovice, InvoiceUser } from './types'
 
-export type { Inovice }
+export type { Inovice, InvoiceUser }

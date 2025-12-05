@@ -1,3 +1,3 @@
-import { getInvoiceList, createInvoice } from './invoices'
+import { getInvoiceList, createInvoice, getUsersForInvoice } from './invoices'
 
-export { getInvoiceList, createInvoice }
+export { getInvoiceList, createInvoice, getUsersForInvoice }

@@ -20,3 +20,4 @@ docker compose up -d
 8. Добавить реактивность в pinia
 9. Добавить редирект при 404
 10. Добавить sprite.svg
+11. Необходимо убрать обработку logout из httpClient
