@@ -19,3 +19,9 @@ defineEmits<{
   (e: 'click'): void
 }>()
 </script>
+
+<style scoped>
+.btn:disabled {
+  opacity: 0.5;
+}
+</style>
