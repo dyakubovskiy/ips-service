@@ -1,9 +1,8 @@
 import type { AxiosRequestConfig } from 'axios'
+import type { EventHookOn } from '@vueuse/core'
 
-import { useRouter } from 'vue-router'
+import { createEventHook } from '@vueuse/core'
 import axios from 'axios'
-import { useUserStore } from '@/entities/user'
-import { MAIN_LINK } from '../config'
 
 interface HttpConfig {
   baseURL: string
@@ -21,11 +20,14 @@ interface HttpClient {
   fetchFull: <T>(config: AxiosRequestConfig) => Promise<HttpResponse<T>>
   setToken: (token: string) => void
   clearToken: () => void
+  onUnauthorized: EventHookOn<void>
 }
 
 const httpClient = ({ baseURL, defaultHeaders }: HttpConfig): HttpClient => {
   const DATA_NULL = null
   const ERROR_STATUS = 500
+
+  const unauthorizedHook = createEventHook<void>()
 
   const axiosInstant = axios.create({
     baseURL,
@@ -49,7 +51,10 @@ const httpClient = ({ baseURL, defaultHeaders }: HttpConfig): HttpClient => {
     } catch (err: unknown) {
       console.log(err)
       if (axios.isAxiosError(err) && err.response) {
-        if (err.response.status === 401) unAuthorizedHandler()
+        if (err.response.status === 401) {
+          clearToken()
+          unauthorizedHook.trigger()
+        }
         return {
           data: err.response.data ?? DATA_NULL,
           status: err.response.status ?? ERROR_STATUS
@@ -88,16 +93,9 @@ const httpClient = ({ baseURL, defaultHeaders }: HttpConfig): HttpClient => {
     isSuccess,
     fetchFull,
     setToken,
-    clearToken
+    clearToken,
+    onUnauthorized: unauthorizedHook.on
   }
-}
-
-const unAuthorizedHandler = (): void => {
-  const router = useRouter()
-  const { resetUser } = useUserStore()
-
-  resetUser()
-  router.push({ name: MAIN_LINK.name })
 }
 
 const baseURL: string = import.meta.env.VITE_API_URL ?? '/'
