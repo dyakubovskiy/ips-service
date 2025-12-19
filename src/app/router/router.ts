@@ -5,6 +5,7 @@ import { AUTH_SECTION_ROUTE } from '@/pages/auth'
 import { MAIN_ROUTE } from '@/pages/main'
 import { SUBSCRIBES_ROUTE } from '@/pages/subscribes'
 import { INVOICES_ROUTE } from '@/pages/invoices'
+import { PROFILE_ROUTE } from '@/pages/profile'
 import { useUserStore } from '@/entities/user'
 import { MAIN_LINK } from '@/shared/config'
 import { CenteredLayout, SidebarLayout } from '../layout'
@@ -26,7 +27,8 @@ const router = createRouter({
           component: MAIN_ROUTE.component
         },
         SUBSCRIBES_ROUTE,
-        { ...INVOICES_ROUTE, beforeEnter: (to, from, next) => adminRouteGuard(next) }
+        { ...INVOICES_ROUTE, beforeEnter: (to, from, next) => adminRouteGuard(next) },
+        PROFILE_ROUTE
       ],
       component: SidebarLayout
     }

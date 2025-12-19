@@ -26,7 +26,7 @@
         <div class="brand">ServiceHub</div>
         <div class="hstack">
           <div class="small">Привет, User</div>
-          <RouterLink :to="MAIN_LINK">Профиль</RouterLink>
+          <RouterLink :to="PROFILE_LINK">Профиль</RouterLink>
           <VButton @click="logutUser">Выход</VButton>
         </div>
       </header>
@@ -43,6 +43,7 @@ import type { RouteLocationRaw } from 'vue-router'
 import { useRouter } from 'vue-router'
 import { SUBSCRIBES_LINK } from '@/pages/subscribes'
 import { INVOICES_LINK } from '@/pages/invoices'
+import { PROFILE_LINK } from '@/pages/profile'
 import { useUserStore } from '@/entities/user'
 import { MAIN_LINK } from '@/shared/config'
 import { VButton } from '@/shared/ui/button'
