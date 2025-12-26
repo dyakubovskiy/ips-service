@@ -25,7 +25,7 @@
       <header class="header">
         <div class="brand">ServiceHub</div>
         <div class="hstack">
-          <div class="small">Привет, User</div>
+          <div class="small">Привет, {{ userName }}</div>
           <RouterLink :to="PROFILE_LINK">Профиль</RouterLink>
           <VButton @click="logutUser">Выход</VButton>
         </div>
@@ -60,7 +60,7 @@ const LINKS = [
 
 const ADMIN_LINKS = [{ to: INVOICES_LINK, name: 'Счета' }] as const satisfies Array<Link>
 
-const { isAdmin, resetUser } = useUserStore()
+const { isAdmin, userName, resetUser } = useUserStore()
 const router = useRouter()
 
 const logutUser = (): void => {
