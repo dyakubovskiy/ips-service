@@ -1,3 +1,3 @@
-import type { Profile } from './types'
+import type { Profile, Invoice } from './types'
 
-export type { Profile }
+export type { Profile, Invoice }
