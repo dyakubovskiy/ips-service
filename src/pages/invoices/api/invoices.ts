@@ -1,8 +1,7 @@
 import type { Inovice, InvoiceUser } from '../model'
 
+import { INVOICE_PATH } from '@/entities/invoice'
 import { http } from '@/shared/api'
-
-const INVOICE_PATH = '/invoices'
 
 interface InvoiceDTO {
   id: string
