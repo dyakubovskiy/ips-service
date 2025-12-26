@@ -37,16 +37,36 @@
         <VButton @click="fetchProfile">Получить профиль</VButton>
       </div>
     </div>
+    <h2 class="invoice">Мои счета</h2>
+    <div class="card">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Сумма</th>
+            <th>Дата выставления</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="{ id, amount, createdAt } in invoices"
+            :key="id">
+            <td>{{ currencyFormatter.format(amount) }}</td>
+            <td>{{ useDateFormat(createdAt, 'DD-MM-YYYY') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import type { Profile } from '../model'
+import type { Profile, Invoice } from '../model'
 
 import { ref, onMounted } from 'vue'
+import { currencyFormatter, useDateFormat } from '@/shared/lib/formats'
 import { VButton } from '@/shared/ui/button'
-import { getProfile, updateProfile } from '../api'
+import { getProfile, updateProfile, getMyInvoices } from '../api'
 
 const profile: Ref<Profile | null> = ref(null)
 
@@ -54,9 +74,7 @@ const fetchProfile = async (): Promise<void> => {
   profile.value = await getProfile()
 }
 
-onMounted(fetchProfile)
-
-const saveHandler = async (): Promise<void> => {
+async function saveHandler(): Promise<void> {
   if (profile.value === null) throw new Error('Logic Exception. Profile not initiated')
 
   const { name, address } = profile.value
@@ -83,9 +101,27 @@ const isUpdatePayloadValid = (payload: {
   address: string | null
 }): payload is { name: string; address: string } =>
   Boolean(payload.name) && Boolean(payload.address)
+
+const invoices: Ref<Array<Invoice>> = ref([])
+
+const fetchInvoices = async (): Promise<void> => {
+  invoices.value = await getMyInvoices()
+}
+
+const FETCH_HANDLES = [fetchProfile, fetchInvoices] as const
+
+const fetchUserData = async (handles: ReadonlyArray<() => Promise<void>>): Promise<void> => {
+  handles.forEach((hadnle) => hadnle())
+}
+
+onMounted(() => fetchUserData(FETCH_HANDLES))
 </script>
 
 <style scoped>
+.invoice {
+  padding-top: 2rem;
+}
+
 .hstack {
   justify-content: flex-end;
 }
