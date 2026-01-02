@@ -21,12 +21,15 @@ export interface User {
   token: string
 }
 
+type UserInfo = Pick<User, 'name' | 'address'>
+
 interface UserStore {
   isUserAuth: Ref<boolean>
   isAdmin: Ref<boolean>
   userName: Ref<string>
   setUser: (userData: User) => void
   resetUser: () => void
+  updateUserInfo: (info: UserInfo) => void
   getUserEmail: () => string
   getToken: () => string
 }
@@ -59,6 +62,15 @@ export const useUserStore = defineStore('useUserStore', (): UserStore => {
     user.value = null
   }
 
+  const updateUserInfo: UserStore['updateUserInfo'] = (info) => {
+    if (user.value === null) throw new Error('Logic Exception. User not authorized')
+
+    const { name, address } = info
+
+    user.value.name = name
+    user.value.address = address
+  }
+
   const getUserEmail: UserStore['getUserEmail'] = () => {
     if (user.value === null) throw new Error('Logic Exception. User not authorized')
 
@@ -73,5 +85,14 @@ export const useUserStore = defineStore('useUserStore', (): UserStore => {
 
   const isAdmin: UserStore['isAdmin'] = computed(() => user.value?.role === USER_ROLES.ADMIN)
 
-  return { isUserAuth, isAdmin, userName, setUser, resetUser, getUserEmail, getToken }
+  return {
+    isUserAuth,
+    isAdmin,
+    userName,
+    setUser,
+    resetUser,
+    updateUserInfo,
+    getUserEmail,
+    getToken
+  }
 })
