@@ -46,13 +46,17 @@ export const useUserStore = defineStore('useUserStore', (): UserStore => {
     }
   })
 
+  const authUser: Ref<User> = computed(() => {
+    assertUserAuthorize(user)
+
+    return user.value
+  })
+
   const isUserAuth: UserStore['isUserAuth'] = computed(() => !!user.value)
 
-  const userName: UserStore['userName'] = computed(() => {
-    if (user.value === null) throw new Error('Logic Exception. User not authorized')
-
-    return user.value.name ?? user.value.email
-  })
+  const userName: UserStore['userName'] = computed(
+    () => authUser.value.name ?? authUser.value.email
+  )
 
   const setUser: UserStore['setUser'] = (userData) => {
     user.value = userData
@@ -63,7 +67,7 @@ export const useUserStore = defineStore('useUserStore', (): UserStore => {
   }
 
   const updateUserInfo: UserStore['updateUserInfo'] = (info) => {
-    if (user.value === null) throw new Error('Logic Exception. User not authorized')
+    assertUserAuthorize(user)
 
     const { name, address } = info
 
@@ -71,19 +75,14 @@ export const useUserStore = defineStore('useUserStore', (): UserStore => {
     user.value.address = address
   }
 
-  const getUserEmail: UserStore['getUserEmail'] = () => {
-    if (user.value === null) throw new Error('Logic Exception. User not authorized')
-
-    return user.value.email
-  }
-
-  const getToken: UserStore['getToken'] = () => {
-    if (user.value === null) throw new Error('Logic Exception. User not authorized')
-
-    return user.value.token
-  }
+  const getUserEmail: UserStore['getUserEmail'] = () => authUser.value.email
+  const getToken: UserStore['getToken'] = () => authUser.value.token
 
   const isAdmin: UserStore['isAdmin'] = computed(() => user.value?.role === USER_ROLES.ADMIN)
+
+  function assertUserAuthorize(user: Ref<User | null>): asserts user is Ref<User> {
+    if (user.value === null) throw new Error('Logic Exception. User not authorized')
+  }
 
   return {
     isUserAuth,
