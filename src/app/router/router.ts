@@ -1,7 +1,7 @@
 import type { NavigationGuardNext } from 'vue-router'
 
 import { createRouter, createWebHistory } from 'vue-router'
-import { AUTH_SECTION_ROUTE } from '@/pages/auth'
+import { AUTH_SECTION_LINKS, AUTH_SECTION_ROUTE } from '@/pages/auth'
 import { MAIN_ROUTE } from '@/pages/main'
 import { SUBSCRIBES_ROUTE } from '@/pages/subscribes'
 import { INVOICES_ROUTE } from '@/pages/invoices'
@@ -54,7 +54,7 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-  return next({ name: 'login' })
+  return next({ name: AUTH_SECTION_LINKS.LOGIN.name })
 })
 
 const adminRouteGuard = (next: NavigationGuardNext) => {
