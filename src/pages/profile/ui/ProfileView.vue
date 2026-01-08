@@ -64,11 +64,13 @@ import type { Ref } from 'vue'
 import type { Profile, Invoice } from '../model'
 
 import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/entities/user'
 import { currencyFormatter, useDateFormat } from '@/shared/lib/formats'
 import { VButton } from '@/shared/ui/button'
 import { getProfile, updateProfile, getMyInvoices } from '../api'
 
 const profile: Ref<Profile | null> = ref(null)
+const { updateUserInfo } = useUserStore()
 
 const fetchProfile = async (): Promise<void> => {
   profile.value = await getProfile()
@@ -93,6 +95,7 @@ async function saveHandler(): Promise<void> {
     return
   }
 
+  updateUserInfo(payload)
   fetchProfile()
 }
 

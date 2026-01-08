@@ -41,6 +41,7 @@
 import type { RouteLocationRaw } from 'vue-router'
 
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { SUBSCRIBES_LINK } from '@/pages/subscribes'
 import { INVOICES_LINK } from '@/pages/invoices'
 import { PROFILE_LINK } from '@/pages/profile'
@@ -60,7 +61,8 @@ const LINKS = [
 
 const ADMIN_LINKS = [{ to: INVOICES_LINK, name: 'Счета' }] as const satisfies Array<Link>
 
-const { isAdmin, userName, resetUser } = useUserStore()
+const { isAdmin, userName } = storeToRefs(useUserStore())
+const { resetUser } = useUserStore()
 const router = useRouter()
 
 const logutUser = (): void => {
