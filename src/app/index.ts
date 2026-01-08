@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { AUTH_SECTION_LINKS } from '@/pages/auth'
 import { http } from '@/shared/api'
 
 import { router } from './router'
@@ -9,6 +10,7 @@ import './styles/main.css'
 import { useUserStore } from '@/entities/user'
 
 const unAuthorizedHandler = (): void => {
+  router.push({ name: AUTH_SECTION_LINKS.LOGIN.name })
   const { resetUser } = useUserStore()
 
   resetUser()

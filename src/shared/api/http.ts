@@ -49,7 +49,6 @@ const httpClient = ({ baseURL, defaultHeaders }: HttpConfig): HttpClient => {
 
       return { data, status }
     } catch (err: unknown) {
-      console.log(err)
       if (axios.isAxiosError(err) && err.response) {
         if (err.response.status === 401) {
           clearToken()
