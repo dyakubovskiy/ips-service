@@ -27,7 +27,7 @@
         <div class="hstack">
           <div class="small">Привет, {{ userName }}</div>
           <RouterLink :to="PROFILE_LINK">Профиль</RouterLink>
-          <VButton @click="logutUser">Выход</VButton>
+          <VButton @click="logout">Выход</VButton>
         </div>
       </header>
       <main>
@@ -40,11 +40,11 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from 'vue-router'
 
-import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { SUBSCRIBES_LINK } from '@/pages/subscribes'
 import { INVOICES_LINK } from '@/pages/invoices'
 import { PROFILE_LINK } from '@/pages/profile'
+import { useLogout } from '@/features/logout'
 import { useUserStore } from '@/entities/user'
 import { MAIN_LINK } from '@/shared/config'
 import { VButton } from '@/shared/ui/button'
@@ -62,13 +62,7 @@ const LINKS = [
 const ADMIN_LINKS = [{ to: INVOICES_LINK, name: 'Счета' }] as const satisfies Array<Link>
 
 const { isAdmin, userName } = storeToRefs(useUserStore())
-const { resetUser } = useUserStore()
-const router = useRouter()
-
-const logutUser = (): void => {
-  resetUser()
-  router.push({ name: MAIN_LINK.name })
-}
+const { logout } = useLogout()
 </script>
 
 <style scoped>
