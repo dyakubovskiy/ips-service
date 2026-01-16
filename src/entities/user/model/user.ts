@@ -46,16 +46,10 @@ export const useUserStore = defineStore('useUserStore', (): UserStore => {
     }
   })
 
-  const authUser: Ref<User> = computed(() => {
-    assertUserAuthorize(user)
-
-    return user.value
-  })
-
   const isUserAuth: UserStore['isUserAuth'] = computed(() => !!user.value)
 
   const userName: UserStore['userName'] = computed(
-    () => authUser.value.name ?? authUser.value.email
+    () => user.value?.name ?? user.value?.email ?? 'Пользователь'
   )
 
   const setUser: UserStore['setUser'] = (userData) => {
@@ -75,8 +69,16 @@ export const useUserStore = defineStore('useUserStore', (): UserStore => {
     user.value.address = address
   }
 
-  const getUserEmail: UserStore['getUserEmail'] = () => authUser.value.email
-  const getToken: UserStore['getToken'] = () => authUser.value.token
+  const getUserEmail: UserStore['getUserEmail'] = () => {
+    assertUserAuthorize(user)
+
+    return user.value.email
+  }
+  const getToken: UserStore['getToken'] = () => {
+    assertUserAuthorize(user)
+
+    return user.value.token
+  }
 
   const isAdmin: UserStore['isAdmin'] = computed(() => user.value?.role === USER_ROLES.ADMIN)
 
