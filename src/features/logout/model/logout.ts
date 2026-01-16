@@ -1,6 +1,6 @@
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/entities/user'
-import { MAIN_LINK } from '@/shared/config'
+import { LOGIN_LINK } from '@/shared/config'
 
 interface UseLogout {
   logout: () => void
@@ -11,8 +11,8 @@ export const useLogout = (): UseLogout => {
   const { resetUser } = useUserStore()
 
   const logout: UseLogout['logout'] = () => {
-    router.push({ name: MAIN_LINK.name })
     resetUser()
+    router.push({ name: LOGIN_LINK.name })
   }
 
   return { logout }
