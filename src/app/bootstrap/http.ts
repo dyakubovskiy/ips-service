@@ -1,12 +1,15 @@
-import { useLogout } from '@/features/logout'
+import type { Router } from 'vue-router'
 import { useUserStore } from '@/entities/user'
 import { http } from '@/shared/api'
+import { LOGIN_LINK } from '@/shared/config'
 
-export const setupHttp = (): void => {
-  const { isUserAuth, getToken } = useUserStore()
-  const { logout } = useLogout()
+export const setupHttp = (router: Router): void => {
+  const { isUserAuth, getToken, resetUser } = useUserStore()
 
   if (isUserAuth) http.setToken(getToken())
 
-  http.onUnauthorized(logout)
+  http.onUnauthorized(() => {
+    resetUser()
+    router.push(LOGIN_LINK.name)
+  })
 }
